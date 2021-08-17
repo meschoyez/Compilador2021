@@ -28,7 +28,7 @@ ANTLR -->
             [0-9] [02468]
             rangos numéricos -> horas día ([01][0-9])|('2'[0-3])
             [-+*/]
-    ^a   -> negación  -> ^[.,;:]
+    ~a   -> negación  -> ~[.,;:] (tilde -EN- / virgulilla -ES-)
 
 -----------------
 Ejercitación
