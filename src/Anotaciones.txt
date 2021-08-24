@@ -1,3 +1,11 @@
+Herramientas similares a ANTLR:
+ - Lex y Yacc - AT&T luego de la creación de C
+    Lex  - Lexical Analyzer
+    Yacc - Yet Another Compiler of Compilers
+ - Flex (léxico) y Bison (sintáctico) - GNU las usa GCC
+
+-- ANTLR (ANother Tool for Language Recognition) --
+
 Expresiones Regulares (regexp)
 
 Recorrido iterativo sobre secuencias de caracteres
@@ -43,6 +51,102 @@ Dado un texto con palabras en oraciones, números, horas en formato HH:MM y fech
 7) Fechas de meses pares
 8) Fechas de días entre el 12 y 23
 
+-----------------
+
+Análisis Sintáctico (Gramatical)
+
+Mira la estructura del lenguaje
+
+   La árbol vuela. --> OK léxica y sintacticamente
+
+Dos formas de realizar el análisis sintáctico:
+ - Descendente --> ANTLR
+ - Ascendente  --> Yacc/Bison
+
+Forma de trabajo --> recursión
+
+Regla de Balance de Paréntesis:
+
+s : '(' s ')' s
+  |      // Regla vacía - interrumpe recursión - lambda o epsilon
+  ;
+
+==> ()  ==> ()()()  ==> ((())) ==> (())()((()))
+
+Análisis Sintáctico Descendente
+
+Vamos desde la raíz hacia las hojas del árbol.
+   raíz -> regla gramatical -> símbolo inicial
+   ramas -> unen nodos entre sí y con hojas
+   nodos -> son regla gramaticales -> raíz nodo particular
+   hojas -> reglas léxicas -> 
+   
+Derivar -> aplicar una regla gramatical
+Match   -> se verifica coindencia del token
+
+Tabla de Análisis Sintáctico Descendente
+
+(pila)
+$ SimboloInicial       input $
+...
+$ (vacío)            (vacío) $ OK
 
 
+s : '(' s ')' s
+  |
+  ;
+
+Entrada es: (())()
+
+$ s                (())() $ Derivar
+$ s ) s (          (())() $ Match
+$ s ) s             ())() $ Derivar
+$ s ) s ) s (       ())() $ Match
+$ s ) s ) s          ))() $ Derivar
+$ s ) s )            ))() $ Match
+$ s ) s               )() $ Derivar
+$ s )                 )() $ Match
+$ s                    () $ Derivar
+$ s ) s (              () $ Match
+$ s ) s                 ) $ Derivar
+$ s )                   ) $ Match
+$ s                       $ Derivar
+$                         $ OK
+
+              s
+          /  / \  \
+         (  s   )   s
+          // \\    /|\\
+         ( s ) s  ( s ) s
+           |   |    |   |
+
+
+Entrada es: (()()
+
+$ s                 (()() $ Derivar
+$ s ) s (           (()() $ Match
+$ s ) s              ()() $ Derivar
+$ s ) s ) s (        ()() $ Match
+$ s ) s ) s           )() $ Derivar
+$ s ) s )             )() $ Match
+$ s ) s                () $ Derivar
+$ s ) s ) s (          () $ Match
+$ s ) s ) s             ) $ Derivar
+$ s ) s )               ) $ Match
+$ s ) s                   $ Derivar
+$ s )                     $ ERROR
+
+
+Entrada es: (()))()
+
+$ s                (()))() $ Derivar
+$ s ) s (          (()))() $ Match
+$ s ) s             ()))() $ Derivar
+$ s ) s ) s (       ()))() $ Match
+$ s ) s ) s          )))() $ Derivar
+$ s ) s )            )))() $ Match
+$ s ) s               ))() $ Derivar
+$ s )                 ))() $ Match
+$ s                    )() $ Derivar
+$                      )() $ ERROR
 
