@@ -6,10 +6,12 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 public class App {
+
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        System.out.println("Hello, World!");        
         // create a CharStream that reads from file
-        CharStream input = CharStreams.fromFileName("src/entrada.txt");
+        // CharStream input = CharStreams.fromFileName("src/entrada.txt");
+        CharStream input = CharStreams.fromFileName("src/declaraciones.txt");
 
         // create a lexer that feeds off of input CharStream
         compiladorLexer lexer = new compiladorLexer(input);
@@ -19,7 +21,7 @@ public class App {
         
         // create a parser that feeds off the tokens buffer
         compiladorParser parser = new compiladorParser(tokens);
-                
+
         // create Listener
         // ExpRegBaseListener escucha = new Escucha();
 
@@ -28,7 +30,9 @@ public class App {
 
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial
-        parser.s();
+        // parser.horas();
+        parser.programa();
+    
         // ParseTree tree =  parser.s();
         // Conectamos el visitor
         // Caminante visitor = new Caminante();

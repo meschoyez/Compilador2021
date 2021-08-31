@@ -1,0 +1,3 @@
+int x, y, z;
+int pepe2, pepa;
+int nros_primos;

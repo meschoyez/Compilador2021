@@ -12,9 +12,9 @@
             // Archivo con la gramatica
             "grammar": "${file}",
             // Archivo a parsear
-            "input": "src/parentesis.txt",
+            "input": "src/declaraciones.txt",
             // Simbolo inicial
-            "startRule": "bp",
+            "startRule": "programa",
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true
