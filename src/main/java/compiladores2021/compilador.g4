@@ -11,15 +11,23 @@ fragment CHAU : 'chau' ;
 
 PA : '(';
 PC : ')';
+LLA : '{' ;
+LLC : '}' ;
 PYC : ';';
 COMA : ',' ;
+
+SUMA : '+' ;
+RESTA : '-' ;
+MULT : '*' ;
+DIV : '/' ;
+
 INT : 'int' ;
 
 SALUDO : HOLA | CHAU ;
 
-NATURAL : DIGITO+ ;
-
-ENTERO : '-'? NATURAL ;
+ENTERO : DIGITO+ ;
+// NATURAL : DIGITO+ ;
+// ENTERO : '-'? NATURAL ;
 
 ID : [a-zA-Z_] [a-zA-Z0-9_]* ;
 
@@ -41,7 +49,7 @@ bp : PA bp PC bp
    |
    ;
 
-s : NATURAL { System.out.println("Natural -> " + $NATURAL.getText()); } s
+s : ENTERO { System.out.println("Natural -> " + $ENTERO.getText()); } s
   | OTRO { System.out.println("No reconocido -> |" + $OTRO.getText() + "|"); } s
   | SALUDO { System.out.println("Saludo -> |" + $SALUDO.getText() + "|"); } s
   | EOF
@@ -54,7 +62,11 @@ instrucciones : instruccion instrucciones
               ;
 
 instruccion : declaracion
+            | iwhile
+            | bloque
             ;
+
+bloque : LLA instrucciones LLC ;
 
 declaracion : INT secvar PYC { System.out.println("Ok -> |"); }
             ;
@@ -62,3 +74,29 @@ declaracion : INT secvar PYC { System.out.println("Ok -> |"); }
 secvar : ID COMA secvar
        | ID
        ;
+
+iwhile : PA ;
+
+test : oal ;
+
+oal : term t
+    ;
+
+term : factor f
+     ;
+
+t : SUMA term t
+  | RESTA term t
+  |
+  ;
+
+factor : ENTERO
+       | ID
+       | PA oal PC
+       ;
+
+f : MULT factor f
+  | DIV  factor f
+  |
+  ;
+

@@ -150,3 +150,80 @@ $ s )                 ))() $ Match
 $ s                    )() $ Derivar
 $                      )() $ ERROR
 
+
+-----------------
+
+Análisis sintáctico Ascendente - desde las hojas hacia la raíz
+(Yacc y Bison)
+
+Las acciones son Desplazar y Reducir
+
+$ (vacío)              input $ 
+...
+$ SimboloInicial     (vacío) $ OK
+
+
+s : '(' s ')' s
+  |
+  ;
+
+Entrada es: (())()
+
+$                  (())() $ Desplazar
+$ (                 ())() $ Desplazar
+$ ((                 ))() $ Reducir
+$ ((s                ))() $ Desplazar
+$ ((s)                )() $ Reducir
+$ ((s)s               )() $ Reducir
+$ (s                  )() $ Desplazar
+$ (s)                  () $ Desplazar
+$ (s)(                  ) $ Reducir
+$ (s)(s                 ) $ Desplazar
+$ (s)(s)                  $ Reducir
+$ (s)(s)s                 $ Reducir
+$ (s)s                    $ Reducir
+$ s                       $ OK
+
+
+                      s
+               /    /   \   \ 
+             /   s       \       s
+           /   / | \ \    |   / | \ \
+       (      (  s  )  s  )  (  s  )  s
+                 |     |        |     |
+
+
+Entrada es: (()()
+
+$                   (()() $ Desplazar
+$ (                  ()() $ Desplazar
+$ ((                  )() $ Reducir
+$ ((s                 )() $ Desplazar
+$ ((s)                 () $ Desplazar
+$ ((s)(                 ) $ Reducir
+$ ((s)(s                ) $ Desplazar
+$ ((s)(s)                 $ Reducir
+$ ((s)(s)s                $ Reducir
+$ ((s)s                   $ Reducir
+$ (s                      $ Error
+
+
+
+Entrada es: (()))()
+
+$                  (()))() $ Desplazar
+$ (                 ()))() $ Desplazar
+$ ((                 )))() $ Reducir
+$ ((s                )))() $ Desplazar
+$ ((s)                ))() $ Reducir
+$ ((s)s               ))() $ Reducir
+$ (s                  ))() $ Desplazar
+$ (s)                  )() $ Reducir
+$ (s)s                 )() $ Reducir
+$ s                    )() $ Error
+
+
+
+
+
+
