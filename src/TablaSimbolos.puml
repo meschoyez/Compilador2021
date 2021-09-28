@@ -1,0 +1,47 @@
+@startuml TablaSimbolos
+
+skinparam ClassAttributeIconSize 0
+hide circle
+
+class TablaSimbolos <<singleton>> {
+    - List<Map<String,Id>> tabla
+    + gatInstanceOf () : TablaSimbolos
+    + addContexto ()
+    + delContexto ()
+    + addSimbolo (Id id)
+    + buscarSimbolo (Id id)
+    + buscarSimboloLocal (Id id)
+}
+
+enum TipoDato <<enum>> {
+    VOID
+    INT
+    DOUBLE
+    CHAR
+}
+
+abstract class Id <<abstract>> {
+    - String nombre
+    - TipoDato tipo
+    - Boolen inicializado
+    - Boolean usado
+    + setters()
+    + getters()
+}
+
+class Variable {}
+
+class Funcion {
+    - List<TipoDatos> args
+    + addArgumento (TipoDato td)
+}
+
+TablaSimbolos --> Id
+
+Id -> TipoDato
+
+Id <|-- Variable
+Id <|-- Funcion
+
+
+@enduml

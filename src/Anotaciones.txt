@@ -224,6 +224,41 @@ $ s                    )() $ Error
 
 
 
+------------------------
+
+Tabla de Símbolos
+
+Incorporar los ID de variables y funciones
+
+Debe controlar ID, si está inicializada y usada, tipo de dato, contexto... entre otras
+
+Opciones de implementación:
+   - Lista -> tiene sus dificultados para el manejo de los dificultados
+   - Diccionario -> tiene alguna dificultad de manejo, sobre todo al salir del contexto
+   - Lista de Diccionarios -> Conviene pensando en hacerlo en Java, Lista doblemente enlazada para los contextos y un Mapa para cada contexto
+
+   
+
+--
+#include <stdio.h>
+
+int x = 0, z = 1;
+
+int main () {
+  double x = 0.0;
+
+  for (...) {
+    int x = 1;
+
+    y = x; ???
+    y = z;
+  }
+  y = x; ???
+
+  return 0;
+}
+
+
 
 
 
