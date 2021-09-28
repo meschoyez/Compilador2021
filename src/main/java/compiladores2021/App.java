@@ -8,7 +8,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");        
         // create a CharStream that reads from file
         // CharStream input = CharStreams.fromFileName("src/entrada.txt");
         CharStream input = CharStreams.fromFileName("src/declaraciones.txt");
@@ -23,10 +22,10 @@ public class App {
         compiladorParser parser = new compiladorParser(tokens);
 
         // create Listener
-        // ExpRegBaseListener escucha = new Escucha();
+        compiladorBaseListener escucha = new MiListener();
 
         // Conecto el objeto con Listeners al parser
-        // parser.addParseListener(escucha);
+        parser.addParseListener(escucha);
 
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial

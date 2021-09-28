@@ -258,7 +258,13 @@ int main () {
   return 0;
 }
 
+-----------------
 
+¿Cómo recorrer el árbol?
+
+Durante la construcción (al vuelo) con Listeners.
+
+Con el árbol construido, lo recorremos con Visitor.
 
 
 

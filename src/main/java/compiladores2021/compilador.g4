@@ -68,7 +68,7 @@ instruccion : declaracion
 
 bloque : LLA instrucciones LLC ;
 
-declaracion : INT secvar PYC { System.out.println("Ok -> |"); }
+declaracion : INT secvar PYC //{ System.out.println("Ok -> |"); }
             ;
 
 secvar : ID COMA secvar
