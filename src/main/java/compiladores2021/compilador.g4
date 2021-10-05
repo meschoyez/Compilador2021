@@ -21,6 +21,8 @@ RESTA : '-' ;
 MULT : '*' ;
 DIV : '/' ;
 
+EQ : '=';
+
 INT : 'int' ;
 
 SALUDO : HOLA | CHAU ;
@@ -68,11 +70,21 @@ instruccion : declaracion
 
 bloque : LLA instrucciones LLC ;
 
-declaracion : INT secvar PYC //{ System.out.println("Ok -> |"); }
+declaracion : INT ID definicion secvar PYC //{ System.out.println("Ok -> |"); }
             ;
 
-secvar : ID COMA secvar
-       | ID
+definicion : EQ oal
+           |
+           ;
+
+// definicion : EQ ENTERO
+//            | EQ ID
+//            |
+//            ;
+
+
+secvar : COMA ID definicion secvar
+       | 
        ;
 
 iwhile : PA ;
