@@ -41,6 +41,10 @@ public class App {
         // Imprime el arbol obtenido
         // System.out.println(tree.toStringTree(parser));
         // System.out.println(escucha);
-        
+
+        Caminante walker = new Caminante();
+        walker.visit(tree);
+        System.out.println(walker);
+        System.out.println(walker.getErrorNodes());
     }
 }

@@ -19,7 +19,8 @@ public class MiVisitor<ParseTree> extends compiladorBaseVisitor<ParseTree> {
         System.out.println("  --  Instrucciones");
         System.out.println("  --    tengo " + ctx.getChildCount() + " hijos");
         System.out.println("  --    |" + ctx.getText() + "|");
-        return (ParseTree)ctx;
+        // return (ParseTree)ctx;
+        return super.visitInstrucciones(ctx);
     }
     
     @Override
