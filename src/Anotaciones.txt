@@ -267,4 +267,93 @@ Durante la construcción (al vuelo) con Listeners.
 Con el árbol construido, lo recorremos con Visitor.
 
 
+-----------------
+
+Código de 3 direcciones
+
+TAD -> Three Address Code 
+
+Es un código fuente similar a un ensamblador donde cada
+instrucción tiene hasta 3 direcciones de memoria.
+
+***
+x = y op z  // ADD AX, BX, CX
+
+x = y op 3
+x = y
+x = 3
+
+label i
+jmp i
+ifnot p jmp i
+
+pop
+push a
+***
+
+Necesitamos dos generadores:
+  - generador de variables temporales
+  - generador de etiquetas
+
+==
+x = 4 * p + r * r / 2 - q / 3;
+
+t0 = 4 * p
+t1 = r * r
+t2 = t1 / 2
+t3 = t0 + t2
+t4 = q / 3
+t5 = t3 - t4
+x = t5
+
+==
+if (x < 10)
+  y = 7 * x;
+else
+  y = -7 * x;
+
+t0 = x < 10
+ifnot t0 jmp l0
+y = 7 * x
+jmp l1
+label l0
+y = -7 * x
+label l1
+
+==
+for (i = 0; i < 10 ; i++)
+   y += x * i;
+
+i = 0
+label l0
+t0 = i < 10
+ifnot t0 jmp l1
+t1 = x * i
+t2 = y + t1
+y = t2
+i = i + 1
+jmp l0
+label l1
+
+==
+int f (int a) {
+  return a * a;
+}
+...
+y = f(x);
+
+
+label l0
+d = pop
+a = pop
+t0 = a * a
+push a
+jmp d
+
+...
+push x
+push l1
+jmp l0
+label l1
+y = pop
 
