@@ -357,3 +357,114 @@ jmp l0
 label l1
 y = pop
 
+
+
+========
+ - function inline -> reemplaza llamado a función por el código de la función
+
+x1 = (-b + b * b - 4 * a * c) / 2 / a
+x2 = (-b - b * b - 4 * a * c) / 2 / a
+
+t0 = b * b
+t1 = 4 * a
+t2 = t1 * c
+t3 = -1 * b
+t4 = t3 + t0
+t5 = t4 - t2
+t6 = t5 / 2
+t7 = t6 / a
+x1 = t7
+t8 = b * b
+t9 = 4 * a
+t10 = t9 * c
+t11 = -1 * b
+t12 = t11 - t8   --> -b - b*b
+t13 = t12 - t10
+t14 = t13 / 2
+t15 = t14 / a
+x2 = t15
+
+--- Optimizacion 1
+
+t0 = b * b
+t1 = 4 * a
+t2 = t1 * c
+t3 = -1 * b
+t4 = t3 + t0
+t5 = t4 - t2
+t6 = t5 / 2
+x1 = t6 / a
+t10 = t1 * c
+t12 = t3 - t0
+t13 = t12 - t10
+t14 = t13 / 2
+x2 = t14 / a
+
+--- Optimizacion 2
+
+t0 = b * b
+t1 = 4 * a
+t2 = t1 * c
+t3 = -1 * b
+t4 = t3 + t0
+t5 = t4 - t2
+t6 = t5 / 2
+x1 = t6 / a
+t12 = t3 - t0
+t13 = t12 - t2
+t14 = t13 / 2
+x2 = t14 / a
+
+
+===========
+
+y = 2 * x^4 + 3 * x^2 - x / 4 + 5
+
+t0 = x * x
+t1 = t0 * x
+t2 = t1 * x
+t3 = 2 * t2
+t4 = x * x
+t5 = 3 * t4
+t6 = x / 4
+t7 = t3 + t5
+t8 = t7 - t6
+t9 = t8 + 5
+y = t9
+
+-- Optimizacion 1
+
+t0 = x * x
+t1 = t0 * x
+t2 = t1 * x
+t3 = 2 * t2
+t5 = 3 * t0
+t6 = x / 4
+t7 = t3 + t5
+t8 = t7 - t6
+y = t8 + 5
+
+
+======
+
+y = 4 / 2 * x + 16 / 4
+
+t0 = 4 / 2
+t1 = t0 * x
+t2 = 16 / 4
+t3 = t1 + t2
+y = t3
+
+-- Optimizacion 1
+
+t0 = 2
+t1 = t0 * x
+t2 = 4
+y = t1 + t2
+
+-- Optimizacion 2
+
+t1 = 2 * x
+y = t1 + 4
+
+
